@@ -1,0 +1,64 @@
+Consigne :
+
+Voici ce qu'il faut savoir pour réussir ce travail :
+- Un ou plusieurs philosophes sont assis à une table ronde.
+Un grand bol de spaghettis se trouve au milieu de la table.
+- Les philosophes mangent, réfléchissent ou dorment.
+Pendant qu'ils mangent, ils ne pensent pas et ne dorment pas ;
+pendant qu'ils pensent, ils ne mangent pas et ne dorment pas ;
+et, bien sûr, pendant qu'ils dorment, ils ne mangent pas et ne pensent pas.
+- Il y a aussi des fourchettes sur la table. Il y a autant de fourchettes que de philosophes.
+- Parce que servir et manger des spaghettis avec une seule fourchette est très gênant, un philosophe prend sa droite et sa gauche.
+philosophe prend sa fourchette droite et sa fourchette gauche pour manger, une dans chaque main.
+- Lorsqu'un philosophe a fini de manger, il repose ses fourchettes sur la table et commence à dormir.
+et commence à dormir. Une fois réveillé, il recommence à réfléchir. La simulation s'arrête lorsque
+un philosophe meurt de faim.
+- Chaque philosophe a besoin de manger et ne devrait jamais mourir de faim.
+- Les philosophes ne se parlent pas entre eux.
+- Les philosophes ne savent pas si un autre philosophe est sur le point de mourir.
+- Inutile de dire que les philosophes devraient éviter de mourir !
+
+Règles globales
+Vous devez écrire un programme pour la partie obligatoire et un autre pour la partie bonus
+(si vous décidez de faire la partie bonus). Tous deux doivent respecter les règles suivantes :
+- Les variables globales sont interdites !
+- Votre (vos) programme(s) doit (doivent) prendre les arguments suivants :
+nombre_de_philosophes temps_de_mourir temps_de_manger temps_de_dormir
+[nombre_de_fois_que_chaque_philosophe_doit_manger]
+◦ nombre_de_philosophes : Le nombre de philosophes et aussi le nombre de fourchettes.
+de fourchettes.
+◦ time_to_die (en millisecondes) : Si un philosophe n'a pas commencé à manger time_to_die
+millisecondes depuis le début de son dernier repas ou le début de la simulation, il meurt.
+◦ time_to_eat (en millisecondes) : Le temps qu'il faut à un philosophe pour manger.
+Pendant ce temps, il devra tenir deux fourchettes.
+◦ time_to_sleep (en millisecondes) : Le temps qu'un philosophe passera à dormir.
+◦ nombre_de_fois_que_chaque_philosophe_doit_manger (argument facultatif) : Si tous les
+philosophes ont mangé au moins nombre_de_fois_que_chaque_philosophe_doit_manger
+la simulation s'arrête. Si elle n'est pas spécifiée, la simulation s'arrête lorsqu'un
+philosophe meurt.
+- Chaque philosophe a un numéro allant de 1 à nombre_de_philosophes.
+- Le philosophe numéro 1 est assis à côté du philosophe numéro_de_philosophes.
+Tout autre philosophe de numéro N est assis entre le philosophe de numéro N - 1 et le philosophe de numéro N + 1.
+
+A propos des logs de votre programme :
+- Tout changement d'état d'un philosophe doit être formaté comme suit :
+◦ timestamp_in_ms X a pris une fourchette
+◦ timestamp_in_ms X est en train de manger
+◦ timestamp_in_ms X dort
+◦ timestamp_in_ms X pense
+◦ timestamp_in_ms X est mort
+Remplacez horodatage_in_ms par l'horodatage actuel en millisecondes
+et X par le numéro de philosophe.
+- Un message d'état affiché ne doit pas être confondu avec un autre message.
+- Un message annonçant la mort d'un philosophe ne doit pas être affiché plus de 10 ms
+après la mort effective du philosophe.
+- Encore une fois, les philosophes devraient éviter de mourir !
+Votre programme ne doit pas avoir de course aux données.
+
+Les règles spécifiques pour la partie obligatoire sont les suivantes :
+- Chaque philosophe doit être un fil.
+- Il y a une fourche entre chaque paire de philosophes. Par conséquent, s'il y a plusieurs
+philosophes, chaque philosophe a une fourche à sa gauche et une fourche à sa droite.
+droite. S'il n'y a qu'un seul philosophe, il ne doit y avoir qu'une seule fourchette sur la table.
+- Pour empêcher les philosophes de dupliquer les fourches, vous devez protéger l'état des fourches
+avec un mutex pour chacune d'entre elles.
