@@ -6,11 +6,11 @@
 #    By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/12 00:49:22 by madumerg          #+#    #+#              #
-#    Updated: 2024/07/12 00:54:08 by madumerg         ###   ########.fr        #
+#    Updated: 2024/07/12 01:15:37 by madumerg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
+NAME = philo
 
 CC = cc
 
@@ -18,7 +18,8 @@ OBJSDIR = obj/
 
 SRCS = main.c \
 	   libft_utils.c \
-	   utils.c
+	   utils.c \
+	   verif.c
 
 OBJS = $(addprefix $(OBJSDIR), $(SRCS:.c=.o))
 

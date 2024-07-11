@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   verif.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 00:05:46 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/12 01:44:31 by madumerg         ###   ########.fr       */
+/*   Created: 2024/07/12 01:10:36 by madumerg          #+#    #+#             */
+/*   Updated: 2024/07/12 01:23:33 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-//proto arg : 
-
-//arg[1] == nb_philo
-//arg[2] == tps_die
-//arg[3] == tps_eat
-//arg[4] == tps_sleep
-//arg[5_facultatif] == [nb_fois_philo_doit_manger]
-
-//faire un enum pour les nommer 
-
-int	main(int ac, char **av)
+int	verif_args(char **av)
 {
-	(void)av;
-	if (ac < 5 || ac > 6)
-		return (err_message(PHILO, ERR_ARG));
-	verif_args(av);
+	int	j;
+	int	i;
+
+	j = 1;
+	while (av[j])
+	{
+		i = 0;
+		while (av[j][i])
+		{
+			if (ft_isdigit(av[j][i]) == 1)
+				return (err_message(PHILO, O_NUM));
+			i++;
+		}
+		j++;
+	}
+	j = 1;
+	if (ft_check_overflow(av, j) == 1)
+		return (err_message(PHILO, OVER_FLOW));
 	return (0);
 }

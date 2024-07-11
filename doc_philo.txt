@@ -23,8 +23,15 @@ Vous devez écrire un programme pour la partie obligatoire et un autre pour la p
 (si vous décidez de faire la partie bonus). Tous deux doivent respecter les règles suivantes :
 - Les variables globales sont interdites !
 - Votre (vos) programme(s) doit (doivent) prendre les arguments suivants :
-nombre_de_philosophes temps_de_mourir temps_de_manger temps_de_dormir
+
+
+nombre_de_philosophes
+ temps_de_mourir
+  temps_de_manger
+   temps_de_dormir
 [nombre_de_fois_que_chaque_philosophe_doit_manger]
+
+
 ◦ nombre_de_philosophes : Le nombre de philosophes et aussi le nombre de fourchettes.
 de fourchettes.
 ◦ time_to_die (en millisecondes) : Si un philosophe n'a pas commencé à manger time_to_die

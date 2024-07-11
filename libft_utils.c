@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 00:22:59 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/12 00:44:31 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/12 01:04:49 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,29 @@ void	ft_putendl_fd(char *s, int fd)
 		i++;
 	}
 	write(fd, "\n", 1);
+}
+
+long long int	ft_atoll(const char *str)
+{
+	int				i;
+	long long int	r;
+	int				s;
+
+	i = 0;
+	r = 0;
+	s = 1;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			s = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		r = r * 10 + str[i] - '0';
+		i++;
+	}
+	return (r *= s);
 }
