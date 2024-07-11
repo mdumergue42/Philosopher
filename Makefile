@@ -1,0 +1,47 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/07/12 00:49:22 by madumerg          #+#    #+#              #
+#    Updated: 2024/07/12 00:54:08 by madumerg         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = minishell
+
+CC = cc
+
+OBJSDIR = obj/
+
+SRCS = main.c \
+	   libft_utils.c \
+	   utils.c
+
+OBJS = $(addprefix $(OBJSDIR), $(SRCS:.c=.o))
+
+FLAGS = -Wall -Werror -Wextra
+
+$(NAME): $(OBJS)
+	@$(CC) $(FLAGS) $(OBJS) -o $(NAME)
+	@echo "✅ Compiled"
+
+$(OBJSDIR)%.o: %.c
+	@mkdir -p $(@D)
+	@$(CC) $(FLAGS) $< -c -o $@
+
+all: $(NAME)
+
+clean:
+	@rm -f $(OBJS)
+
+fclean: clean
+	@rm -f $(NAME)
+	@rm -Rf $(OBJSDIR)
+	@echo "🧹 Cleaned"
+
+re: fclean all
+
+.PHONY: clean all re fclean
