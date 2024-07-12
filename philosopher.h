@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 00:06:08 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/12 01:14:48 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/12 23:28:32 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,16 @@
 # define O_NUM "only numbers are accepted"
 # define OVER_FLOW "number is too big"
 
-typedef struct philo
+typedef enum
+{
+	FORK,
+	EAT,
+	SLEEP,
+	THINK,
+	DIED
+} data_t;
+
+typedef struct s_philo
 {
 	/* data */
 }	t_philo;
