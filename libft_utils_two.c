@@ -1,36 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verif.c                                            :+:      :+:    :+:   */
+/*   libft_utils_two.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 01:10:36 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 07:41:45 by madumerg         ###   ########.fr       */
+/*   Created: 2024/07/25 07:15:41 by madumerg          #+#    #+#             */
+/*   Updated: 2024/07/25 07:16:20 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	verif_args(char **av)
+void	ft_bzero(void *s, size_t count)
 {
-	int	j;
-	int	i;
+	memset(s, 0, count);
+}
 
-	j = 1;
-	while (av[j])
-	{
-		i = 0;
-		while (av[j][i])
-		{
-			if (ft_isdigit(av[j][i]) == 1 && av[j][i] != '+')
-				return (err_message(PHILO, av[j], O_NUM));
-			i++;
-		}
-		if (ft_check_overflow(av[j]) == 1)
-			return (err_message(PHILO, av[j], OVER_FLOW));
-		j++;
-	}
-	j = 1;
-	return (0);
+void	*ft_calloc(size_t ct, size_t size)
+{
+	char	*str;
+
+	if (size == 0 || ct == 0)
+		return (malloc(1));
+	if ((int)size < 0 && (int)ct < 0)
+		return (NULL);
+	if ((unsigned long long)(size * ct) > UINT_MAX)
+		return (NULL);
+	str = malloc(size * ct);
+	if (!str)
+		return (NULL);
+	ft_bzero(str, size * ct);
+	return (str);
 }

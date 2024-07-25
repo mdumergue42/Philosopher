@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verif.c                                            :+:      :+:    :+:   */
+/*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 01:10:36 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 07:41:45 by madumerg         ###   ########.fr       */
+/*   Created: 2024/07/25 07:28:26 by madumerg          #+#    #+#             */
+/*   Updated: 2024/07/25 09:03:49 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	verif_args(char **av)
+void	print_philo(t_rules *rules)
 {
-	int	j;
-	int	i;
-
-	j = 1;
-	while (av[j])
-	{
-		i = 0;
-		while (av[j][i])
-		{
-			if (ft_isdigit(av[j][i]) == 1 && av[j][i] != '+')
-				return (err_message(PHILO, av[j], O_NUM));
-			i++;
-		}
-		if (ft_check_overflow(av[j]) == 1)
-			return (err_message(PHILO, av[j], OVER_FLOW));
-		j++;
-	}
-	j = 1;
-	return (0);
+	printf ("\033[35mnb_p = %d\033[0m\n", rules->nb_p);
+	printf ("\033[55mt_death = %d\033[0m\n", rules->t_death);
+	printf ("\033[34mt_eat = %d\033[0m\n", rules->t_eat);
+	printf ("\033[33mt_sleep = %d\033[0m\n", rules->t_sleep);
+	if (rules->nb_meal)
+		printf ("\033[32mnb_meal = %d\033[0m\n", rules->nb_meal);
 }

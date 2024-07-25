@@ -6,7 +6,7 @@
 #    By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/12 00:49:22 by madumerg          #+#    #+#              #
-#    Updated: 2024/07/12 01:15:37 by madumerg         ###   ########.fr        #
+#    Updated: 2024/07/25 08:18:20 by madumerg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,12 @@ OBJSDIR = obj/
 
 SRCS = main.c \
 	   libft_utils.c \
-	   utils.c \
-	   verif.c
+	   libft_utils_two.c \
+	   philo_init.c \
+	   philo_routine.c \
+	   verif_utils.c \
+	   verif.c \
+	   philo_time.c
 
 OBJS = $(addprefix $(OBJSDIR), $(SRCS:.c=.o))
 

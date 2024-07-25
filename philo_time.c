@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verif.c                                            :+:      :+:    :+:   */
+/*   philo_time.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 01:10:36 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 07:41:45 by madumerg         ###   ########.fr       */
+/*   Created: 2024/07/25 07:48:37 by madumerg          #+#    #+#             */
+/*   Updated: 2024/07/25 08:57:43 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-int	verif_args(char **av)
+int	get_time(struct timeval st, struct timeval end)
 {
-	int	j;
-	int	i;
-
-	j = 1;
-	while (av[j])
-	{
-		i = 0;
-		while (av[j][i])
-		{
-			if (ft_isdigit(av[j][i]) == 1 && av[j][i] != '+')
-				return (err_message(PHILO, av[j], O_NUM));
-			i++;
-		}
-		if (ft_check_overflow(av[j]) == 1)
-			return (err_message(PHILO, av[j], OVER_FLOW));
-		j++;
-	}
-	j = 1;
+	gettimeofday(&end, NULL);
+	printf ("\033[37m%ld\033[0m\n", ((end.tv_sec * 1000000 + end.tv_usec) -
+    (st.tv_sec * 1000000 + st.tv_usec)));
 	return (0);
 }

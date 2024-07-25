@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 00:05:46 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/12 23:57:49 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/25 09:04:43 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 //pthread_create -> pour creer un nv thread
 
 //pthread_detach -->  place le thread th dans l'état détaché // rien compris
+
 // pthread_join ->  suspend l'exécution du thread appelant jusqu'à ce que le thread
 //identifié par th achève son exécution, soit en appelant pthread_exit(3) soit après
 //avoir été annulé.
@@ -52,55 +53,47 @@
 
 //pthread_mutex_unlock -> doit liberer le mutex lock
 
+//Les fonctions gettimeofday () permet d'obtenir et de définir l'heure ainsi qu'un fuseau horaire. 
+//L'argument tv est une structure timeval (comme spécifié dans < sys/time.h > ) :
+// structure timeval {
+//     time_t tv_sec; /* secondes */
+//     suseconds_t tv_usec; ​​/* microsecondes */
+// };
+
 // ***************************************************************
 
-void	*test_thread_one(void *arg)
+// int	create_philo(t_data *data)
+// {
+// 	int	i;
+// 	i = 0;
+// 	while (i < data->nb_p)
+// 	{
+// 		pthread_create();
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+int	main(void)
 {
-	(void)arg;
-	int	i;
-
-	i = 0;
-	while (i < 100)
-	{
-		printf ("\033[92mt1 %d\033[0m\n", i);
-		i++;
-	}
-	pthread_exit(NULL);
-}
-
-void	*test_thread_two(void *arg)
-{
-	(void)arg;
-	int	i;
-
-	i = 0;
-	while (i < 100)
-	{
-		printf ("\033[95mt2 %d\033[0\n", i);
-		i++;
-	}
-	pthread_exit(NULL);
-}
-
-int	main(int ac, char **av)
-{
-	(void)av;
-	(void)ac;
-	pthread_t	t1;
-	pthread_t	t2;
+	// t_rules	*rules;
 
 	// if (ac < 5 || ac > 6)
-	// 	return (err_message(PHILO, ERR_ARG));
-	// verif_args(av);
-	pthread_create(&t1, NULL, test_thread_one, NULL);
-	pthread_create(&t2, NULL, test_thread_two, NULL);
-	
-	pthread_join(t1, NULL);
-	pthread_join(t2, NULL);
-
-	// int i = 0;
-	// while (i < 1000000000)
-	// 	i++;
-
+	// 	return (err_message(PHILO, NULL, ERR_ARG));
+	// if (verif_args(av) == 1)
+	// 	return (1);
+	// rules = ft_calloc(sizeof(t_rules), 1);
+	// if (!rules)
+	// 	return (1);
+	// philo_init(av, rules, ac);
+	// free (rules);
+	int n;
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			n = (10 * i) + j;
+			printf("\e[%dm  %3d  \e[0m", n, n);
+		}
+		printf("\n");
+	}
 	return (0);
 }
