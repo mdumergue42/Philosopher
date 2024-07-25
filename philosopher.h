@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 00:06:08 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 16:45:14 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:15:17 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int				init_rules(t_rules *rules, char **av, int ac);
 int				philo_init(char **av, t_rules *rules, int ac);
 
 //philo_routine.c
-void			print_philo(t_rules *rules);
+void			print_routine(t_philo *philo, t_enum state);
 
 //utils.c
 int				err_message(char *str, char *av, char *strb);
@@ -86,4 +86,7 @@ int				verif_args(char **av);
 int				get_time(struct timeval st, struct timeval end);
 int				get_time_ms(void);
 void			sleep_time(int ms);
+void			*p_routine(void *content);
+
+
 #endif

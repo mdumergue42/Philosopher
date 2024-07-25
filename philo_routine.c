@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:28:26 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 16:44:58 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:18:01 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	print_routine(t_philo *philo, t_enum state)
 	printf ("\033[1;35;3m{%d}\033[0m", time);
 	printf ("\033[1;34;3m %u \033[0m", philo->id);
 	if (state == FORK)
-		printf ("has taken a fork\n");
+		printf ("\033[1;30;3mhas taken a fork\n");
 	if (state == DEAD)
-		printf ("\033[1;30;3mdied\e[0m\n");
+		printf ("\033[1;31;3mdied\e[0m\n");
 	if (state == EAT)
 		printf ("\033[1;35;3mis eating\033[0m\n");
 	if (state == SLEEP)
 		printf ("\033[1;36;3mis sleeping\033[0m\n");
 	if (state == THINK)
-		printf ("is thinking\n");
+		printf ("\033[1;33;3mis thinking\033[0m\n");
 	pthread_mutex_unlock(&(philo->rules->print_mutex));
 }

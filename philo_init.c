@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:21:04 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 16:38:34 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:19:08 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*p_routine(void *content)
 
 	philo = content;
 	philo->st_time = get_time_ms();
-	print_routine(philo, EAT);
+	print_routine(philo, FORK);
 	sleep_time(philo->rules->t_eat);
 	print_routine(philo, THINK);
 	return (NULL);
