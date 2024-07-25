@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:21:04 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 11:42:19 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:38:34 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,91 @@ int	init_rules(t_rules *rules, char **av, int ac)
 	return (0);
 }
 
-void	*tamere(void)
+//mange
+//pense que si il reste du tps
+//si un qui meurt on coupe tt
+
+void	*p_routine(void *content)
 {
-	printf ("Hello World\n");
+	t_philo	*philo;
+
+	philo = content;
+	philo->st_time = get_time_ms();
+	print_routine(philo, EAT);
+	sleep_time(philo->rules->t_eat);
+	print_routine(philo, THINK);
+	return (NULL);
 }
 
-int	philo_create(t_rules *rules)
+void	init_mutex(t_rules *rules)
 {
-	pthread_t	t1;
-	pthread_mutex_t	*mutex = NULL;
-	pthread_mutex_init(&mutex, NULL);
-	int	i;
+	pthread_mutex_init(&(rules->print_mutex), NULL);
+	pthread_mutex_init(&(rules->mutex_lock), NULL);
+	rules->is_dead = false;
+}
+
+t_philo	*create_fork(t_rules *rules)
+{
+	t_philo			*philo;
+	uint32_t		i;
 
 	i = 0;
+	philo = ft_calloc(sizeof(t_philo) + 1, rules->nb_p);
+	if (!philo)
+		return (NULL);
 	while (i < rules->nb_p)
 	{
-		pthread_mutex_lock(mutex);
-		pthread_create(&t1, NULL, &tamere, NULL);
+		pthread_mutex_init(&(philo[i].fork_l), NULL);
+		philo[i].rules = rules;
+		philo[i].id = i + 1;
 		i++;
-	pthread_mutex_unlock(mutex);
 	}
-	return (0);
+	philo[0].fork_r = &(philo[i - 1].fork_l);
+	i = 1;
+	while (i < rules->nb_p)
+	{
+		philo[i].fork_r = &(philo[i].fork_l);
+		i++;
+	}
+	return (philo);
+}
+
+void	philo_join(t_philo *philo, int nb)
+{
+	int	i;
+
+	usleep(10000);
+	i = 0;
+	while (i < nb)
+	{
+		pthread_join(philo->t2, NULL);
+		i++;
+	}
+}
+
+int	philo_create(t_rules *rules, t_philo * philo) //return le nb de philo creer
+{
+	uint32_t	i;
+
+	i = 0;
+	init_mutex(rules);
+	while (i < rules->nb_p)
+	{
+		if (pthread_create(&(philo[i].t2), NULL, &p_routine, philo + i) != 0)
+			return (i);
+		i++;
+	}
+	return (i);
 }
 
 int	philo_init(char **av, t_rules *rules, int ac)
 {
-	//struct timeval st;
-//	struct timeval end;
+	t_philo			*philo;
+	int				stock;
+
 	init_rules(rules, av, ac);
-//	gettimeofday(&st, NULL);
-//	print_philo(rules);
-//	get_time(st, end);
+	philo = create_fork(rules);
+	stock = philo_create(rules, philo);
+	philo_join(philo, stock);
 	return (0);
 }

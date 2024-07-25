@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 00:05:46 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 10:12:19 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:43:54 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@
 // 	return (0);
 // }
 
-int	main(int ac, char **av
-		 )
+int	main(int ac, char **av)
 {
 	t_rules	*rules;
 
@@ -88,13 +87,13 @@ int	main(int ac, char **av
 		return (1);
 	philo_init(av, rules, ac);
 	free (rules);
-//	int n;
-//	for (int i = 0; i < 10; i++) {
-	//	for (int j = 0; j < 10; j++) {
-	//		n = (10 * i) + j;
-	//		printf("\e[%dm  %3d  \e[0m", n, n);
-	//	}
-	//	printf("\n");
-	//}
+	// int n;
+	// for (int i = 0; i < 10; i++) {
+	// 	for (int j = 0; j < 10; j++) {
+	// 		n = (10 * i) + j;
+	// 		printf("\e[%dm  %3d  \e[0m", n, n);
+	// 	}
+	// 	printf("\n");
+	// }
 	return (0);
 }

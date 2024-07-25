@@ -6,7 +6,7 @@
 #    By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/12 00:49:22 by madumerg          #+#    #+#              #
-#    Updated: 2024/07/25 08:18:20 by madumerg         ###   ########.fr        #
+#    Updated: 2024/07/25 15:36:58 by madumerg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS = main.c \
 
 OBJS = $(addprefix $(OBJSDIR), $(SRCS:.c=.o))
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 $(NAME): $(OBJS)
 	@$(CC) $(FLAGS) $(OBJS) -o $(NAME)

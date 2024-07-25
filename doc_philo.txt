@@ -64,7 +64,7 @@ Votre programme ne doit pas avoir de course aux données.
 
 Les règles spécifiques pour la partie obligatoire sont les suivantes :
 - Chaque philosophe doit être un fil.
-- Il y a une fourche entre chaque paire de philosophes. Par conséquent, s'il y a plusieurs
+- Il y a une fourchette entre chaque paire de philosophes. Par conséquent, s'il y a plusieurs
 philosophes, chaque philosophe a une fourche à sa gauche et une fourche à sa droite.
 droite. S'il n'y a qu'un seul philosophe, il ne doit y avoir qu'une seule fourchette sur la table.
 - Pour empêcher les philosophes de dupliquer les fourches, vous devez protéger l'état des fourches
