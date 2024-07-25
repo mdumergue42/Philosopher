@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 00:06:08 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 08:27:19 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:33:58 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int				init_rules(t_rules *rules, char **av, int ac);
 int				philo_init(char **av, t_rules *rules, int ac);
 
 //philo_routine.c
-void			print_philo(t_rules *rules);
+void			*print_philo(t_rules *rules);
 
 //utils.c
 int				err_message(char *str, char *av, char *strb);
