@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:21:04 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 17:19:08 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:50:40 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,17 @@ void	*p_routine(void *content)
 
 	philo = content;
 	philo->st_time = get_time_ms();
+	pthread_mutex_lock(philo->fork_r);
 	print_routine(philo, FORK);
+	print_routine(philo, EAT);
 	sleep_time(philo->rules->t_eat);
+	pthread_mutex_lock(&(philo->fork_l));
+	pthread_mutex_unlock(philo->fork_r);
+	pthread_mutex_unlock(&(philo->fork_l));
 	print_routine(philo, THINK);
+	sleep_time(philo->rules->t_sleep);
+	print_routine(philo, DEAD);
+	sleep_time(philo->rules->is_dead);
 	return (NULL);
 }
 
