@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 00:06:08 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/30 01:25:43 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/30 03:00:36 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ typedef struct s_philo
 	pthread_mutex_t	fork_l;
 	t_rules			*rules;
 	pthread_t		t2;
-	int				st_time;	
+	int				st_time;
+	uint32_t		st_eat;	
 }	t_philo;
 
 //libft_utils_two.c
@@ -84,7 +85,7 @@ int				verif_args(char **av);
 
 int				get_time(struct timeval st, struct timeval end);
 int				get_time_ms(void);
-void			sleep_time(int ms);
+int				sleep_time(t_philo *philo, int ms);
 void			*p_routine(void *content);
 
 

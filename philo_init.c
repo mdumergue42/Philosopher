@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:21:04 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/30 02:26:48 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/30 03:06:51 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,24 @@ void	*p_routine(void *content)
 	philo->st_time = get_time_ms();
 	while (i < philo->rules->nb_p)
 	{
+		philo->st_eat = get_time_ms();
 		take_forks(philo, philo->id);
 		print_routine(philo, FORK);
 		take_forks(philo, philo->id + 1);
 		print_routine(philo, FORK);
 		print_routine(philo, EAT);
-		sleep_time(philo->rules->t_eat);
+		if (sleep_time(philo, philo->rules->t_eat) == 1)
+		{
+			print_routine(philo, DEAD);
+			break ;
+		}
 		pthread_mutex_unlock(&(philo->fork_l));
 		pthread_mutex_unlock(philo->fork_r);
 		i++;
 		//verif si manger tt ces repas
 		print_routine(philo, SLEEP);
-		sleep_time(philo->rules->t_sleep);
+		sleep_time(philo, philo->rules->t_sleep);
 		print_routine(philo, THINK);
-		// print_routine(philo, DEAD);
 		// sleep_time(philo->rules->is_dead);
 	}
 	return (NULL);
