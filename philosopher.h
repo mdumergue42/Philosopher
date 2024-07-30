@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 00:06:08 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 17:15:17 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:25:43 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_rules
 	uint32_t		t_eat;
 	uint32_t		t_sleep;
 	uint32_t		nb_meal;
-	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	mutex_lock;
 	bool			is_dead;
 }	t_rules;

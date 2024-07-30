@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:21:04 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 17:50:40 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/30 02:26:48 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,45 @@ int	init_rules(t_rules *rules, char **av, int ac)
 	return (0);
 }
 
-//mange
-//pense que si il reste du tps
-//si un qui meurt on coupe tt
+void	take_forks(t_philo *philo, int id)
+{
+	if (id % 2)
+		pthread_mutex_lock(&(philo->fork_l));
+	else
+		pthread_mutex_lock(philo->fork_r);
+}
 
 void	*p_routine(void *content)
 {
-	t_philo	*philo;
+	t_philo			*philo;
+	uint32_t		i;
 
+	i = 0;
 	philo = content;
 	philo->st_time = get_time_ms();
-	pthread_mutex_lock(philo->fork_r);
-	print_routine(philo, FORK);
-	print_routine(philo, EAT);
-	sleep_time(philo->rules->t_eat);
-	pthread_mutex_lock(&(philo->fork_l));
-	pthread_mutex_unlock(philo->fork_r);
-	pthread_mutex_unlock(&(philo->fork_l));
-	print_routine(philo, THINK);
-	sleep_time(philo->rules->t_sleep);
-	print_routine(philo, DEAD);
-	sleep_time(philo->rules->is_dead);
+	while (i < philo->rules->nb_p)
+	{
+		take_forks(philo, philo->id);
+		print_routine(philo, FORK);
+		take_forks(philo, philo->id + 1);
+		print_routine(philo, FORK);
+		print_routine(philo, EAT);
+		sleep_time(philo->rules->t_eat);
+		pthread_mutex_unlock(&(philo->fork_l));
+		pthread_mutex_unlock(philo->fork_r);
+		i++;
+		//verif si manger tt ces repas
+		print_routine(philo, SLEEP);
+		sleep_time(philo->rules->t_sleep);
+		print_routine(philo, THINK);
+		// print_routine(philo, DEAD);
+		// sleep_time(philo->rules->is_dead);
+	}
 	return (NULL);
 }
 
 void	init_mutex(t_rules *rules)
 {
-	pthread_mutex_init(&(rules->print_mutex), NULL);
 	pthread_mutex_init(&(rules->mutex_lock), NULL);
 	rules->is_dead = false;
 }
@@ -67,15 +79,9 @@ t_philo	*create_fork(t_rules *rules)
 	while (i < rules->nb_p)
 	{
 		pthread_mutex_init(&(philo[i].fork_l), NULL);
+		philo[i].fork_r = &(philo[(i + 1) % rules->nb_p].fork_l);
 		philo[i].rules = rules;
 		philo[i].id = i + 1;
-		i++;
-	}
-	philo[0].fork_r = &(philo[i - 1].fork_l);
-	i = 1;
-	while (i < rules->nb_p)
-	{
-		philo[i].fork_r = &(philo[i].fork_l);
 		i++;
 	}
 	return (philo);
@@ -85,8 +91,8 @@ void	philo_join(t_philo *philo, int nb)
 {
 	int	i;
 
-	usleep(10000);
 	i = 0;
+	usleep(1000);
 	while (i < nb)
 	{
 		pthread_join(philo->t2, NULL);
@@ -94,7 +100,7 @@ void	philo_join(t_philo *philo, int nb)
 	}
 }
 
-int	philo_create(t_rules *rules, t_philo * philo) //return le nb de philo creer
+int	philo_create(t_rules *rules, t_philo *philo) //return le nb de philo creer
 {
 	uint32_t	i;
 

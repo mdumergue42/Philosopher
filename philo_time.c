@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:48:37 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/25 16:41:03 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/30 02:26:44 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ void	sleep_time(int ms) //temps qu'il doit dormir
 
 	end = get_time_ms() + ms;
 	while (get_time_ms() < end)
-		usleep(100);
+		usleep(1000);
 }
