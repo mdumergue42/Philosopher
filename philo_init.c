@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:21:04 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/31 16:15:31 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/31 21:02:36 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,27 @@ void	take_forks(t_philo *philo, int id)
 void	*p_routine(void *content)
 {
 	t_philo			*philo;
-	uint32_t		i;
+	int				i;
 
 	i = 0;
 	philo = content;
-	philo->st_time = get_time_ms();
-	while (i < philo->rules->nb_p)
+	while (i < philo->rules->nb_meal)
 	{
 		take_forks(philo, philo->id);
 		print_routine(philo, FORK);
+		if (&philo->fork_l == philo->fork_r)
+		{
+			if (sleep_time(philo, philo->rules->t_death) == 1)
+			{
+				pthread_mutex_unlock(&(philo->fork_l));
+				pthread_mutex_unlock(philo->fork_r);
+				print_routine(philo, DEAD);
+				break ;
+			}
+		}
 		take_forks(philo, philo->id + 1);
 		print_routine(philo, FORK);
-		philo->st_eat = get_time_ms();
+		gettimeofday(&philo->st_eat, NULL);
 		print_routine(philo, EAT);
 		if (sleep_time(philo, philo->rules->t_eat) == 1)
 		{
@@ -104,23 +113,25 @@ void	philo_join(t_philo *philo, int nb)
 	int	i;
 
 	i = 0;
-//	usleep(1000);
 	while (i < nb)
 	{
-		pthread_join(philo->t2, NULL);
+		pthread_join(philo[i].t2, NULL);
 		i++;
 	}
 }
 
 int	philo_create(t_rules *rules, t_philo *philo) //return le nb de philo creer
 {
-	uint32_t	i;
+	uint32_t		i;
+	struct timeval st;
 
 	i = 0;
 	init_mutex(rules);
+	gettimeofday(&st, NULL);
 	while (i < rules->nb_p)
 	{
-		if (pthread_create(&(philo[i].t2), NULL, &p_routine, philo + i) != 0)
+		philo[i].st_time = st;
+		if (pthread_create(&(philo[i].t2), NULL, &p_routine, &philo[i]) != 0)
 			return (i);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 00:06:08 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/30 03:00:36 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/31 20:54:52 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_rules
 	uint32_t		t_death;
 	uint32_t		t_eat;
 	uint32_t		t_sleep;
-	uint32_t		nb_meal;
+	int				nb_meal;
 	pthread_mutex_t	mutex_lock;
 	bool			is_dead;
 }	t_rules;
@@ -55,8 +55,8 @@ typedef struct s_philo
 	pthread_mutex_t	fork_l;
 	t_rules			*rules;
 	pthread_t		t2;
-	int				st_time;
-	uint32_t		st_eat;	
+	struct timeval		st_time;
+	struct timeval		st_eat;	
 }	t_philo;
 
 //libft_utils_two.c
@@ -84,8 +84,9 @@ int				ft_check_overflow(char *len_num);
 int				verif_args(char **av);
 
 int				get_time(struct timeval st, struct timeval end);
-int				get_time_ms(void);
-int				sleep_time(t_philo *philo, int ms);
+uint32_t		get_actual_time_ms(void);
+uint32_t		get_time_ms(struct timeval st, struct timeval actual);
+int				sleep_time(t_philo *philo, uint32_t ms);
 void			*p_routine(void *content);
 
 
