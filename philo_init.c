@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:21:04 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/31 21:02:36 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/31 21:48:54 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,16 @@ void	take_forks(t_philo *philo, int id)
 		pthread_mutex_lock(philo->fork_r);
 }
 
-void	*p_routine(void *content)
+void	unlock_error(t_philo *philo)
 {
-	t_philo			*philo;
-	int				i;
+	pthread_mutex_unlock(&(philo->fork_l));
+	pthread_mutex_unlock(philo->fork_r);
+	print_routine(philo, DEAD);
+}
 
-	i = 0;
-	philo = content;
-	while (i < philo->rules->nb_meal)
+void	*exec_routine(t_philo *philo, int i)
+{
+	while (1)
 	{
 		take_forks(philo, philo->id);
 		print_routine(philo, FORK);
@@ -47,9 +49,7 @@ void	*p_routine(void *content)
 		{
 			if (sleep_time(philo, philo->rules->t_death) == 1)
 			{
-				pthread_mutex_unlock(&(philo->fork_l));
-				pthread_mutex_unlock(philo->fork_r);
-				print_routine(philo, DEAD);
+				unlock_error(philo);
 				break ;
 			}
 		}
@@ -59,26 +59,31 @@ void	*p_routine(void *content)
 		print_routine(philo, EAT);
 		if (sleep_time(philo, philo->rules->t_eat) == 1)
 		{
-			pthread_mutex_unlock(&(philo->fork_l));
-			pthread_mutex_unlock(philo->fork_r);
-			print_routine(philo, DEAD);
+			unlock_error(philo);
 			break ;
 		}
 		pthread_mutex_unlock(&(philo->fork_l));
 		pthread_mutex_unlock(philo->fork_r);
 		i++;
-		//verif si manger tt ces repas
+		if (i == philo->rules->nb_meal)
+			break ;
 		print_routine(philo, SLEEP);
 		if (sleep_time(philo, philo->rules->t_sleep) == 1)
 		{
-			pthread_mutex_unlock(&(philo->fork_l));
-			pthread_mutex_unlock(philo->fork_r);
 			print_routine(philo, DEAD);
 			break ;
 		}
 		print_routine(philo, THINK);
-	//	sleep_time(philo, philo->rules->t_death);
 	}
+	return (NULL);
+}
+
+void	*p_routine(void *content)
+{
+	t_philo			*philo;
+
+	philo = content;
+	exec_routine(philo, 0);
 	return (NULL);
 }
 
