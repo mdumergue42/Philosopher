@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:48:37 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/30 03:07:21 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:40:57 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	sleep_time(t_philo *philo, int ms) //temps qu'il doit dormir
 	end = get_time_ms() + ms;
 	while (get_time_ms() < end)
 	{
-		if (philo->st_eat > philo->rules->t_death)
+		if (get_time_ms() - philo->st_eat > philo->rules->t_death)
 			return (1);
 		usleep(1000);
 	}

@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:21:04 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/30 03:06:51 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:15:31 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,16 @@ void	*p_routine(void *content)
 	philo->st_time = get_time_ms();
 	while (i < philo->rules->nb_p)
 	{
-		philo->st_eat = get_time_ms();
 		take_forks(philo, philo->id);
 		print_routine(philo, FORK);
 		take_forks(philo, philo->id + 1);
 		print_routine(philo, FORK);
+		philo->st_eat = get_time_ms();
 		print_routine(philo, EAT);
 		if (sleep_time(philo, philo->rules->t_eat) == 1)
 		{
+			pthread_mutex_unlock(&(philo->fork_l));
+			pthread_mutex_unlock(philo->fork_r);
 			print_routine(philo, DEAD);
 			break ;
 		}
@@ -58,9 +60,15 @@ void	*p_routine(void *content)
 		i++;
 		//verif si manger tt ces repas
 		print_routine(philo, SLEEP);
-		sleep_time(philo, philo->rules->t_sleep);
+		if (sleep_time(philo, philo->rules->t_sleep) == 1)
+		{
+			pthread_mutex_unlock(&(philo->fork_l));
+			pthread_mutex_unlock(philo->fork_r);
+			print_routine(philo, DEAD);
+			break ;
+		}
 		print_routine(philo, THINK);
-		// sleep_time(philo->rules->is_dead);
+	//	sleep_time(philo, philo->rules->t_death);
 	}
 	return (NULL);
 }
@@ -96,7 +104,7 @@ void	philo_join(t_philo *philo, int nb)
 	int	i;
 
 	i = 0;
-	usleep(1000);
+//	usleep(1000);
 	while (i < nb)
 	{
 		pthread_join(philo->t2, NULL);
