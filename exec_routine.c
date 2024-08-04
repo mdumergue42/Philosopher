@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:48:29 by madumerg          #+#    #+#             */
-/*   Updated: 2024/08/04 16:01:23 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:21:17 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	print_meals_s_part(t_philo *philo)
 {
 	take_forks(philo, philo->id + 1);
 	print_routine(philo, FORK);
+	gettimeofday(&philo->st_eat, NULL);
 	print_routine(philo, EAT);
 }
 
@@ -56,8 +57,6 @@ void	*exec_routine(t_philo *philo)
 			unlock_error(philo);
 			break ;
 		}
-		//verifier le truc du get time
-		gettimeofday(&philo->st_eat, NULL);
 		get_set_nb_meals(philo, true);
 		unlock_error(philo);
 		print_routine(philo, SLEEP);
