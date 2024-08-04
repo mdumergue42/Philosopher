@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 00:06:08 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/31 20:54:52 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/08/04 14:41:53 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ typedef enum s_enum
 	DEAD
 }	t_enum;
 
+typedef enum s_modif_end
+{
+	NO_MODIFIED = -1,
+	FALSE,
+	TRUE
+}	t_modif_end;
+
 typedef struct s_rules
 {
 	uint32_t		nb_p;
@@ -45,6 +52,7 @@ typedef struct s_rules
 	uint32_t		t_sleep;
 	int				nb_meal;
 	pthread_mutex_t	mutex_lock;
+	pthread_mutex_t	death;
 	bool			is_dead;
 }	t_rules;
 
@@ -55,9 +63,13 @@ typedef struct s_philo
 	pthread_mutex_t	fork_l;
 	t_rules			*rules;
 	pthread_t		t2;
-	struct timeval		st_time;
-	struct timeval		st_eat;	
+	struct timeval	st_time;
+	struct timeval	st_eat;
+	uint32_t		back_nb_meals;
 }	t_philo;
+
+//exec_routine.c
+void			*exec_routine(t_philo *philo);
 
 //libft_utils_two.c
 void			*ft_calloc(size_t ct, size_t size);
@@ -69,9 +81,12 @@ void			ft_putendl_fd(char *s, int fd);
 long long int	ft_atoll(const char *str);
 int				ft_atoi(const char *str);
 
-//philo_init.c
-int				init_rules(t_rules *rules, char **av, int ac);
+//philo_init_utils.c
+void			philo_join(t_philo *philo, int nb);
+
+//philo_init.c && main.c
 int				philo_init(char **av, t_rules *rules, int ac);
+int				init_rules(t_rules *rules, char **av, int ac);
 
 //philo_routine.c
 void			print_routine(t_philo *philo, t_enum state);
@@ -89,5 +104,7 @@ uint32_t		get_time_ms(struct timeval st, struct timeval actual);
 int				sleep_time(t_philo *philo, uint32_t ms);
 void			*p_routine(void *content);
 
+int	get_set_nb_meals(t_philo *philo, bool set);
+bool	get_set_end(t_rules *rules, t_modif_end end);
 
 #endif

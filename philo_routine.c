@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 07:28:26 by madumerg          #+#    #+#             */
-/*   Updated: 2024/07/31 20:55:04 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:15:21 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,24 @@
 void	print_routine(t_philo *philo, t_enum state)
 {
 	uint32_t						time;
-	static pthread_mutex_t	print = {0};
+	static pthread_mutex_t			print = {0};
 	struct timeval					actual;
 
 	gettimeofday(&actual, NULL);
 	time = get_time_ms(philo->st_time, actual);
-//	dprintf(2, "time = %u\n", time);
 	pthread_mutex_lock(&print);
-	if (state == FORK)
+	if (get_set_end(philo->rules, NO_MODIFIED) == false)
 	{
-		//lock
-		printf ("\033[1;30;3m%u %u has taken a fork\033[0m\n", time, philo->id);
-		//unlock
+		if (state == FORK)
+			printf ("\033[1;30;3m%u %u has taken a fork\033[0m\n", time, philo->id);
+		if (state == DEAD)
+			printf ("\033[5;31;3m%u %u died\033[0m\n", time, philo->id);
+		if (state == EAT)
+			printf ("\033[1;35;3m%u %u is eating\033[0m\n", time, philo->id);
+		if (state == SLEEP)
+			printf ("\033[1;36;3m%u %u is sleeping\033[0m\n", time, philo->id);
+		if (state == THINK)
+			printf ("\033[1;33;3m%u %u is thinking\033[0m\n", time, philo->id);
 	}
-	if (state == DEAD)
-		printf ("\033[5;31;3m%u %u died\033[0m\n", time, philo->id);
-	if (state == EAT)
-		printf ("\033[1;35;3m%u %u is eating\033[0m\n", time, philo->id);
-	if (state == SLEEP)
-		printf ("\033[1;36;3m%u %u is sleeping\033[0m\n", time, philo->id);
-	if (state == THINK)
-		printf ("\033[1;33;3m%u %u is thinking\033[0m\n", time, philo->id);
 	pthread_mutex_unlock(&print);
 }
