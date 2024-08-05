@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 00:06:08 by madumerg          #+#    #+#             */
-/*   Updated: 2024/08/04 14:41:53 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/08/04 20:14:43 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ uint32_t		get_time_ms(struct timeval st, struct timeval actual);
 int				sleep_time(t_philo *philo, uint32_t ms);
 void			*p_routine(void *content);
 
-int	get_set_nb_meals(t_philo *philo, bool set);
-bool	get_set_end(t_rules *rules, t_modif_end end);
+int				get_set_nb_meals(t_philo *philo, bool set);
+bool			get_set_end(t_rules *rules, t_modif_end end);
 
 #endif

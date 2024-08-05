@@ -6,7 +6,7 @@
 /*   By: madumerg <madumerg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 18:48:29 by madumerg          #+#    #+#             */
-/*   Updated: 2024/08/04 16:21:17 by madumerg         ###   ########.fr       */
+/*   Updated: 2024/08/04 20:15:46 by madumerg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	*exec_routine(t_philo *philo)
 	while (get_set_end(philo->rules, NO_MODIFIED) == false)
 	{
 		print_meals_f_part(philo);
-		if (&philo->fork_l == philo->fork_r && sleep_time(philo, philo->rules->t_death) == 1)
+		if (&philo->fork_l == philo->fork_r && \
+			sleep_time(philo, philo->rules->t_death) == 1)
 		{
 			unlock_error(philo);
 			break ;
