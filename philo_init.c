@@ -129,5 +129,7 @@ int	philo_init(char **av, t_rules *rules, int ac)
 	stock = philo_create(rules, philo);
 	monitoring(philo);
 	philo_join(philo, stock);
+	free(rules);
+	free(philo);
 	return (0);
 }

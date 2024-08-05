@@ -24,11 +24,11 @@ void	print_routine(t_philo *p, t_enum state)
 	if (get_set_end(p->rules, NO_MODIFIED) == false)
 	{
 		if (state == FORK)
-			printf ("\033[1;30;3m%u %u has taken a fork\033[0m\n", time, p->id);
+			printf ("\033[1;32;3m%u %u has taken a fork\033[0m\n", time, p->id);
 		if (state == DEAD)
 			printf ("\033[5;31;3m%u %u died\033[0m\n", time, p->id);
 		if (state == EAT)
-			printf ("\033[1;35;3m%u %u is eating\033[0m\n", time, p->id);
+			printf ("\033[1;34;3m%u %u is eating\033[0m\n", time, p->id);
 		if (state == SLEEP)
 			printf ("\033[1;36;3m%u %u is sleeping\033[0m\n", time, p->id);
 		if (state == THINK)

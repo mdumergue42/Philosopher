@@ -36,6 +36,12 @@ int	sleep_time(t_philo *philo, uint32_t ms)
 	while (get_actual_time_ms() < end)
 	{
 		gettimeofday(&actual, NULL);
+		if (&philo->fork_l == philo->fork_r)
+		{
+			usleep(philo->rules->t_death * 1000);
+			print_routine(philo, DEAD);
+			return (1);
+		}
 		if (get_time_ms(philo->st_eat, actual) > philo->rules->t_death)
 		{
 			print_routine(philo, DEAD);

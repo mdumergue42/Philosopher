@@ -12,10 +12,11 @@
 
 #include "philosopher.h"
 
-void	unlock_error(t_philo *philo)
+void	unlock(t_philo *philo)
 {
 	pthread_mutex_unlock(&(philo->fork_l));
-	pthread_mutex_unlock(philo->fork_r);
+	if (philo->fork_r != &philo->fork_l)
+		pthread_mutex_unlock(philo->fork_r);
 }
 
 void	take_forks(t_philo *philo, int id)
@@ -49,17 +50,17 @@ void	*exec_routine(t_philo *philo)
 		if (&philo->fork_l == philo->fork_r && \
 			sleep_time(philo, philo->rules->t_death) == 1)
 		{
-			unlock_error(philo);
+			unlock(philo);
 			break ;
 		}
 		print_meals_s_part(philo);
 		if (sleep_time(philo, philo->rules->t_eat) == 1)
 		{
-			unlock_error(philo);
+			unlock(philo);
 			break ;
 		}
 		get_set_nb_meals(philo, true);
-		unlock_error(philo);
+		unlock(philo);
 		print_routine(philo, SLEEP);
 		if (sleep_time(philo, philo->rules->t_sleep) == 1)
 			break ;
