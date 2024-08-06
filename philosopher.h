@@ -26,7 +26,7 @@
 # define PHILO "philosopher : "
 # define ERR_ARG "invalid number of arguments"
 # define O_NUM "only numbers are accepted"
-# define OVER_FLOW "number is too big"
+# define ERR_NUM "number is invalid"
 
 typedef enum s_enum
 {
@@ -83,6 +83,7 @@ int				ft_atoi(const char *str);
 
 //philo_init_utils.c
 void			philo_join(t_philo *philo, int nb);
+void			monitoring(t_philo *philo);
 
 //philo_init.c && main.c
 int				philo_init(char **av, t_rules *rules, int ac);

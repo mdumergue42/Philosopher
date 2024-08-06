@@ -28,7 +28,7 @@ int	verif_args(char **av)
 			i++;
 		}
 		if (ft_check_overflow(av[j]) == 1)
-			return (err_message(PHILO, av[j], OVER_FLOW));
+			return (err_message(PHILO, av[j], ERR_NUM));
 		j++;
 	}
 	j = 1;

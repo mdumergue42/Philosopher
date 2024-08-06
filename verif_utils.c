@@ -42,6 +42,8 @@ int	ft_check_overflow(char *len_num)
 {
 	if (ft_strlen_specific(len_num) > 11)
 		return (1);
+	if (ft_atoll(len_num) == 0)
+		return (1);
 	if (ft_atoll(len_num) > 2147483647 || ft_atoll(len_num) < -2147483648)
 		return (1);
 	return (0);
